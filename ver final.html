@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Colonialism Education Lab | Learning by Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --text: #34495e;
+            --text-light: #7f8c8d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 2rem 0;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--secondary);
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--secondary);
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .knowledge-processes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .process-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            border-top: 4px solid var(--secondary);
+        }
+
+        .process-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .process-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .process-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .simulation-container {
+            background: var(--dark);
+            color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .simulation-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(52, 152, 219, 0.1), rgba(231, 76, 60, 0.1));
+        }
+
+        .simulation-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .data-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            margin: 10px;
+        }
+
+        .flow-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.8rem;
+        }
+
+        .flow-arrow {
+            flex: 0 0 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #27ae60;
+        }
+
+        .interactive-diagram {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .diagram-container {
+            position: relative;
+            height: 400px;
+            background: #f8f9fa;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+
+        .glossary {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .term-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .term-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .data-flow {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            
+            .knowledge-processes, .glossary, .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Estilos específicos para elementos interativos */
+        .data-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .counter {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .quote {
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        .author {
+            text-align: right;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Digital Colonialism Education Lab</span>
+                </div>
+                <h1>Colonialismo Digital & Learning by Design</h1>
+                <p class="subtitle">Uma abordagem pedagógica crítica para compreender e resistir às novas formas de colonialismo na era digital</p>
+                
+                <div class="nav-tabs">
+                    <button class="tab-btn active" data-tab="intro">
+                        <i class="fas fa-home"></i> Introdução
+                    </button>
+                    <button class="tab-btn" data-tab="experience">
+                        <i class="fas fa-binoculars"></i> Experienciando
+                    </button>
+                    <button class="tab-btn" data-tab="conceptualize">
+                        <i class="fas fa-brain"></i> Conceituando
+                    </button>
+                    <button class="tab-btn" data-tab="analyze">
+                        <i class="fas fa-chart-bar"></i> Analisando
+                    </button>
+                    <button class="tab-btn" data-tab="apply">
+                        <i class="fas fa-rocket"></i> Aplicando
+                    </button>
+                    <button class="tab-btn" data-tab="resources">
+                        <i class="fas fa-book"></i> Recursos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Introdução -->
+            <section id="intro" class="tab-content active">
+                <h2 class="section-title">
+                    <i class="fas fa-compass"></i> Introdução ao Colonialismo Digital
+                </h2>
+                
+                <div class="card">
+                    <h3>O que é Colonialismo Digital?</h3>
+                    <p>De acordo com Paulo Boa Sorte (2023), o colonialismo digital é "o uso de tecnologia digital para a dominação política, econômica e social de outra nação ou território".</p>
+                    
+                    <div class="quote">
+                        "As tecnologias digitais estão, em definitivo, incorporadas ao nosso cotidiano e, dificilmente, vivemos sem elas. A nossa dependência desses recursos é tão grande que eles estão naturalizados em nossas atividades de comunicação, compra, estudo, trabalho, transporte, alimentação e entretenimento."
+                        <div class="author">— Paulo Boa Sorte</div>
+                    </div>
+                    
+                    <p>Este laboratório educativo utiliza a estrutura do <strong>Learning by Design</strong> para guiar você através de uma jornada de compreensão crítica sobre como o colonialismo digital opera e como podemos resistir a ele.</p>
+                </div>
+                
+                <h3 class="section-title">
+                    <i class="fas fa-sitemap"></i> Os 8 Processos de Conhecimento
+                </h3>
+                
+                <div class="knowledge-processes">
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h4>Experienciando o Conhecido</h4>
+                        <p>Refletir sobre experiências familiares com tecnologia</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4>Experienciando o Novo</h4>
+                        <p>Observar ou participar de algo desconhecido</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <h4>Conceituando por Nomeação</h4>
+                        <p>Agrupar coisas em categorias e definir termos</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h4>Conceituando com Teoria</h4>
+                        <p>Fazer generalizações usando conceitos</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h4>Analisando Funcionalmente</h4>
+                        <p>Analisar conexões lógicas, causa e efeito</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h4>Analisando Criticamente</h4>
+                        <p>Avaliar perspectivas, interesses e motivos</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h4>Aplicando Apropriadamente</h4>
+                        <p>Aplicar aprendizagem a situações do mundo real</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h4>Aplicando Criativamente</h4>
+                        <p>Fazer uma intervenção inovadora no mundo</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Como usar este laboratório</h3>
+                    <p>Navegue pelas abas acima para explorar diferentes dimensões do colonialismo digital. Cada seção foi projetada para guiá-lo através dos processos de conhecimento do Learning by Design, com atividades interativas, reflexões e recursos para aprofundamento.</p>
+                    <button class="btn" data-tab="experience">
+                        Começar a Jornada <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Experienciando -->
+            <section id="experience" class="tab-content">
+                <h2 class="section-title">
+                    <i class="fas fa-binoculars"></i> Experienciando o Colonialismo Digital
+                </h2>
+                
+                <div class="card">
+                    <h3>Simulação: A Extração de Dados em Tempo Real</h3>
+                    <p>Clique no botão abaixo para simular o que acontece quando você usa um aplicativo "gratuito". Observe como seus dados pessoais são extraídos, processados e monetizados.</p>
+                    
+                    <div class="simulation-container">
+                        <div class="simulation-content">
+                            <h4>Rastros Digitais Capturados</h4>
+                            <div class="counter" id="dataCounter">0</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            
+                            <div class="data-flow">
+                                <div class="flow-item">
+                                    <div class="flow-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <p>Seu Dispositivo</p>
+                                </div>
+                                
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                
+                                <div class="flow-item">
+                                    <div class="flow-icon">
+                                        <i class="fas fa-cloud"></i>
+                                    </div>
+                                    <p>Servidores na Nuvem</p>
+                                </div>
+                                
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                
+                                <div class="flow-item">
+                                    <div class="flow-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <p>Análise e Perfilamento</p>
+                                </div>
+                                
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                
+                                <div class="flow-item">
+                                    <div class="flow-icon">
+                                        <i class="fas fa-ad"></i>
+                                    </div>
+                                    <p>Monetização</p>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-danger" id="startExtraction">
+                                Iniciar Aplicativo "Gratuito" <i class="fas fa-play"></i>
+                            </button>
+                            
+                            <div id="dataLog" style="margin-top: 1.5rem; font-family: monospace; font-size: 0.9rem; max-height: 200px; overflow-y: auto; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: var(--radius);"></div>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin-top: 1.5rem;">Perguntas para Reflexão</h4>
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li>O que mais surpreendeu você sobre a velocidade e o volume de extração de dados?</li>
+                        <li>Como essa simulação se relaciona com o conceito de "colonialismo digital" de Boa Sorte?</li>
+                        <li>Você consegue identificar três maneiras pelas quais seus dados podem ser usados sem seu consentimento explícito?</li>
+                        <li>Quais dinâmicas de poder estão em jogo quando seus dados viajam para outro país?</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Atividade: Mapeamento de Rastros Digitais</h3>
+                    <p>Durante 24 horas, registre cada vez que você percebe que seus dados estão sendo coletados. Use o formulário abaixo para documentar suas observações.</p>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <textarea id="digitalFootprint" placeholder="Descreva uma situação em que você percebeu a coleta de seus dados..." style="width: 100%; height: 120px; padding: 1rem; border-radius: var(--radius); border: 1px solid #ddd; font-family: inherit; resize: vertical;"></textarea>
+                        <button class="btn" style="margin-top: 1rem;" id="addObservation">
+                            <i class="fas fa-plus"></i> Adicionar Observação
+                        </button>
+                    </div>
+                    
+                    <div id="observationsList" style="margin-top: 1.5rem;"></div>
+                </div>
+            </section>
+            
+            <!-- Conceituando -->
+            <section id="conceptualize" class="tab-content">
+                <h2 class="section-title">
+                    <i class="fas fa-brain"></i> Conceituando o Colonialismo Digital
+                </h2>
+                
+                <div class="card">
+                    <h3>Glossário Crítico</h3>
+                    <p>Para compreender e analisar o colonialismo digital, é essencial dominar o vocabulário especializado. Explore os termos abaixo:</p>
+                    
+                    <div class="glossary">
+                        <div class="term-card">
+                            <h4>Colonialismo Digital</h4>
+                            <p>"Uso de tecnologia digital para a dominação política, econômica e social de outra nação ou território" (Kwet, 2021).</p>
+                        </div>
+                        
+                        <div class="term-card">
+                            <h4>Big Techs / Big 5</h4>
+                            <p>Amazon, Apple, Google, Meta e Microsoft - corporações que conduzem uma espécie de colonização empresarial por meio da expansão de suas tecnologias.</p>
+                        </div>
+                        
+                        <div class="term-card">
+                            <h4>Soberania Informacional</h4>
+                            <p>Capacidade de uma comunidade ou Estado de controlar onde e como os dados são armazenados e usados.</p>
+                        </div>
+                        
+                        <div class="term-card">
+                            <h4>Viés Algorítmico</h4>
+                            <p>Vieses reproduzidos por algoritmos, que podem reforçar estereótipos e desigualdades.</p>
+                        </div>
+                        
+                        <div class="term-card">
+                            <h4>IA Generativa</h4>
+                            <p>Modelos que produzem texto, áudio ou imagem a partir de padrões aprendidos (ex: ChatGPT, Bard).</p>
+                        </div>
+                        
+                        <div class="term-card">
+                            <h4>Ideologia Californiana</h4>
+                            <p>Crença tecno-utópica de que a tecnologia democratiza por si só, mascarando projetos geopolíticos de dominação.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Construa seu Próprio Mapa Conceitual</h3>
+                    <p>Arraste os conceitos para conectar ideias e construir sua compreensão das relações entre eles.</p>
+                    
+                    <div class="interactive-diagram">
+                        <div class="diagram-container" id="conceptMap">
+                            <!-- Os conceitos serão adicionados via JavaScript -->
+                        </div>
+                        
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 1rem;">
+                            <div class="concept-draggable" data-concept="Colonialismo Digital">Colonialismo Digital</div>
+                            <div class="concept-draggable" data-concept="Big Techs">Big Techs</div>
+                            <div class="concept-draggable" data-concept="Extração de Dados">Extração de Dados</div>
+                            <div class="concept-draggable" data-concept="Soberania Informacional">Soberania Informacional</div>
+                            <div class="concept-draggable" data-concept="Racismo Algorítmico">Racismo Algorítmico</div>
+                            <div class="concept-draggable" data-concept="Neoliberalismo">Neoliberalismo</div>
+                        </div>
+                        
+                        <button class="btn" style="margin-top: 1.5rem;" id="resetConcepts">
+                            <i class="fas fa-redo"></i> Reiniciar Mapa
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Analisando -->
+            <section id="analyze" class="tab-content">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i> Analisando o Colonialismo Digital
+                </h2>
+                
+                <div class="card">
+                    <h3>Análise de Fluxo de Poder: Do Sul Global ao Norte Global</h3>
+                    
+                    <div class="interactive-diagram">
+                        <div class="diagram-container" id="powerFlowDiagram">
+                            <!-- O diagrama será renderizado via JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <h4>Perguntas para Análise Crítica</h4>
+                        <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                            <li>Como essa estrutura de fluxo de dados se assemelha à extração colonial histórica de matérias-primas?</li>
+                            <li>O que torna o colonialismo digital diferente - e talvez mais insidioso - do que o colonialismo tradicional?</li>
+                            <li>Como o racismo se entrelaça com o colonialismo digital, de acordo com Faustino e Lippold (2023)?</li>
+                            <li>Que papel as políticas neoliberais desempenham no fortalecimento do colonialismo digital?</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Estudo de Caso: SiSU e a Microsoft Azure</h3>
+                    <p>Durante a gestão de Jair Bolsonaro, o Sistema de Seleção Unificada (SiSU) do Ministério da Educação decidiu entregar os dados de milhões de estudantes brasileiros para processamento na plataforma Azure da Microsoft.</p>
+                    
+                    <div class="quote">
+                        "Embora justificada por economia de custos, essa decisão levanta preocupações acerca da soberania e a segurança dos dados dos cidadãos brasileiros."
+                        <div class="author">— Paulo Boa Sorte</div>
+                    </div>
+                    
+                    <h4 style="margin-top: 1.5rem;">Análise do Caso</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+                        <div>
+                            <h5>Argumentos a Favor</h5>
+                            <ul style="padding-left: 1.5rem;">
+                                <li>Economia de custos</li>
+                                <li>Infraestrutura tecnológica avançada</li>
+                                <li>Eficiência no processamento</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h5>Preocupações Críticas</h5>
+                            <ul style="padding-left: 1.5rem;">
+                                <li>Soberania dos dados brasileiros</li>
+                                <li>Segurança da informação</li>
+                                <li>Dependência tecnológica</li>
+                                <li>Assimetria de poder</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <h4>Sua Análise</h4>
+                        <textarea id="caseAnalysis" placeholder="Escreva sua análise sobre este caso considerando os conceitos de colonialismo digital..." style="width: 100%; height: 150px; padding: 1rem; border-radius: var(--radius); border: 1px solid #ddd; font-family: inherit; resize: vertical;"></textarea>
+                        <button class="btn" style="margin-top: 1rem;">
+                            <i class="fas fa-share"></i> Compartilhar Análise
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Aplicando -->
+            <section id="apply" class="tab-content">
+                <h2 class="section-title">
+                    <i class="fas fa-rocket"></i> Aplicando: Da Consciência à Ação
+                </h2>
+                
+                <div class="card">
+                    <h3>Estratégias de Resistência e Alternativas</h3>
+                    
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h4>Alfabetização Crítica Digital</h4>
+                            <p>Incluir discussões metalinguísticas sobre como os algoritmos funcionam, quem os cria e quais vieses carregam.</p>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-code-branch"></i>
+                            </div>
+                            <h4>Soberania Tecnológica</h4>
+                            <p>Privilegiar ferramentas de código aberto (LibreOffice, Signal, Jitsi) em vez de soluções proprietárias.</p>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h4>Transparência Pedagógica</h4>
+                            <p>Discutir abertamente as implicações do uso de tecnologias em sala de aula.</p>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                            <h4>Curadoria Consciente</h4>
+                            <p>Selecionar recursos considerando implicações éticas, políticas e epistemológicas.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Projeto: Desenvolvendo uma Campanha de Conscientização</h3>
+                    <p>Crie uma campanha multimodal para educar outros sobre colonialismo digital. Escolha um formato e desenvolva seu projeto:</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                        <div class="project-option" data-format="video">
+                            <h4><i class="fas fa-video"></i> Vídeo Curto (2-3 min)</h4>
+                            <p>Crie um vídeo educativo sobre um aspecto do colonialismo digital.</p>
+                        </div>
+                        
+                        <div class="project-option" data-format="podcast">
+                            <h4><i class="fas fa-podcast"></i> Podcast</h4>
+                            <p>Produza um episódio entrevistando especialistas ou discutindo o tema.</p>
+                        </div>
+                        
+                        <div class="project-option" data-format="zine">
+                            <h4><i class="fas fa-newspaper"></i> Zine/Infográfico</h4>
+                            <p>Desenvolva material visual combinando texto crítico e elementos gráficos.</p>
+                        </div>
+                        
+                        <div class="project-option" data-format="manifesto">
+                            <h4><i class="fas fa-file-alt"></i> Manifesto</h4>
+                            <p>Elabore um manifesto com propostas para uma educação descolonizada digitalmente.</p>
+                        </div>
+                    </div>
+                    
+                    <div id="projectForm" style="margin-top: 2rem; display: none;">
+                        <h4>Desenvolva Seu Projeto</h4>
+                        <div style="margin-bottom: 1rem;">
+                            <label for="projectTitle">Título do Projeto:</label>
+                            <input type="text" id="projectTitle" style="width: 100%; padding: 0.5rem; border-radius: var(--radius); border: 1px solid #ddd; margin-top: 0.5rem;">
+                        </div>
+                        
+                        <div style="margin-bottom: 1rem;">
+                            <label for="projectDescription">Descrição/Plano:</label>
+                            <textarea id="projectDescription" style="width: 100%; height: 150px; padding: 1rem; border-radius: var(--radius); border: 1px solid #ddd; font-family: inherit; resize: vertical; margin-top: 0.5rem;"></textarea>
+                        </div>
+                        
+                        <button class="btn btn-success">
+                            <i class="fas fa-save"></i> Salvar Projeto
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Compromisso Pessoal</h3>
+                    <p>Com base no que você aprendeu, que ações concretas você pode tomar para resistir ao colonialismo digital em sua prática educativa?</p>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <textarea id="personalCommitment" placeholder="Descreva pelo menos três ações que você se compromete a implementar..." style="width: 100%; height: 120px; padding: 1rem; border-radius: var(--radius); border: 1px solid #ddd; font-family: inherit; resize: vertical;"></textarea>
+                        <button class="btn" style="margin-top: 1rem;">
+                            <i class="fas fa-check-circle"></i> Assinar Compromisso
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Recursos -->
+            <section id="resources" class="tab-content">
+                <h2 class="section-title">
+                    <i class="fas fa-book"></i> Recursos para Aprofundamento
+                </h2>
+                
+                <div class="card">
+                    <h3>Referências Principais</h3>
+                    
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h4>BOA SORTE, Paulo</h4>
+                            <p>Colonialismo digital. In: NASCIMENTO, A. M. et al. Suleando conceitos em linguagens: decolonialidades e epistemologias outras. Volume 2. Campinas: Pontes Editores, 2023. p. 52–56.</p>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h4>KALANTZIS, Mary; COPE, Bill</h4>
+                            <p>Learning by Design. Victoria: Common Ground Publishing, 2005.</p>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h4>FAUSTINO, Deivison; LIPPOLD, Walter</h4>
+                            <p>Colonialismo digital: por uma crítica hacker-fanoniana. São Paulo: Boitempo, 2023.</p>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h4>KWET, Michael</h4>
+                            <p>Digital Colonialism: The Evolution of US Empire. Transnational Institute, 4 mar. 2021. Disponível em: https://longreads.tni.org/digital-colonialism-the-evolution-of-us-empire. Acesso em: 15 nov. 2025.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Ferramentas de Código Aberto</h3>
+                    <p>Alternativas éticas às plataformas das Big Techs:</p>
+                    
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>LibreOffice</strong> - Suite de produtividade</li>
+                        <li><strong>Signal</strong> - Mensagens criptografadas</li>
+                        <li><strong>Jitsi</strong> - Videoconferências</li>
+                        <li><strong>Nextcloud</strong> - Armazenamento em nuvem</li>
+                        <li><strong>Mozilla Firefox</strong> - Navegador web</li>
+                        <li><strong>DuckDuckGo</strong> - Busca na internet</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Para Professores: Plano de Aula</h3>
+                    <p>Sequência didática de 3 aulas para implementar estes conceitos:</p>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <h4>Aula 1: Experienciar</h4>
+                        <ul style="padding-left: 1.5rem;">
+                            <li>Debate inicial sobre dependência digital</li>
+                            <li>Registro de rastros digitais por 24h</li>
+                            <li>Simulação de extração de dados</li>
+                        </ul>
+                        
+                        <h4 style="margin-top: 1rem;">Aula 2: Conceituar e Analisar</h4>
+                        <ul style="padding-left: 1.5rem;">
+                            <li>Construção colaborativa de glossário</li>
+                            <li>Análise de estudo de caso (SiSU/Azure)</li>
+                            <li>Mapas de fluxo de poder</li>
+                        </ul>
+                        
+                        <h4 style="margin-top: 1rem;">Aula 3: Aplicar</h4>
+                        <ul style="padding-left: 1.5rem;">
+                            <li>Desenvolvimento de campanha multimodal</li>
+                            <li>Apresentação de projetos</li>
+                            <li>Assinatura de compromisso ético</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn" style="margin-top: 1.5rem;">
+                        <i class="fas fa-download"></i> Baixar Plano Completo (PDF)
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>Digital Colonialism Education Lab - Uma ferramenta pedagógica baseada em Paulo Boa Sorte (2023) e Kalantzis & Cope (2005)</p>
+                
+                <div class="footer-links">
+                    <a href="#"><i class="fas fa-book"></i> Referências</a>
+                    <a href="#"><i class="fas fa-download"></i> Recursos</a>
+                    <a href="#"><i class="fas fa-envelope"></i> Contato</a>
+                    <a href="#"><i class="fas fa-share-alt"></i> Compartilhar</a>
+                </div>
+                
+                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Para uso educacional • Under MIT License | Copyright &copy; 2025 Brandon</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navegação entre abas
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove a classe active de todos os botões e conteúdos
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Adiciona a classe active ao botão clicado
+                button.classList.add('active');
+                
+                // Mostra o conteúdo correspondente
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Simulação de extração de dados
+        document.getElementById('startExtraction').addEventListener('click', function() {
+            const btn = this;
+            const counter = document.getElementById('dataCounter');
+            const progressFill = document.getElementById('progressFill');
+            const dataLog = document.getElementById('dataLog');
+            
+            let dataPoints = 0;
+            btn.disabled = true;
+            btn.innerHTML = 'Extraindo Dados... <i class="fas fa-sync fa-spin"></i>';
+            dataLog.innerHTML = '';
+            
+            const extractionInterval = setInterval(() => {
+                if (dataPoints >= 100) {
+                    clearInterval(extractionInterval);
+                    btn.innerHTML = 'Extração Concluída <i class="fas fa-check"></i>';
+                    dataLog.innerHTML += '<div style="color: #e74c3c; margin-top: 10px;">→ Dados enviados para servidor na Virgínia, EUA</div>';
+                    return;
+                }
+                
+                const increment = Math.floor(Math.random() * 5) + 1;
+                dataPoints = Math.min(100, dataPoints + increment);
+                
+                counter.textContent = dataPoints;
+                progressFill.style.width = dataPoints + '%';
+                
+                // Adiciona mensagens de log
+                if (dataPoints > 20 && dataPoints <= 25) {
+                    dataLog.innerHTML += '<div>→ Dados de localização capturados</div>';
+                }
+                if (dataPoints > 40 && dataPoints <= 45) {
+                    dataLog.innerHTML += '<div>→ Lista de contatos acessada</div>';
+                }
+                if (dataPoints > 60 && dataPoints <= 65) {
+                    dataLog.innerHTML += '<div>→ Padrões de voz analisados</div>';
+                }
+                if (dataPoints > 80 && dataPoints <= 85) {
+                    dataLog.innerHTML += '<div>→ Perfil comportamental criado</div>';
+                }
+                
+                dataLog.scrollTop = dataLog.scrollHeight;
+            }, 100);
+        });
+
+        // Adicionar observações de rastro digital
+        document.getElementById('addObservation').addEventListener('click', function() {
+            const textarea = document.getElementById('digitalFootprint');
+            const text = textarea.value.trim();
+            
+            if (!text) {
+                alert('Por favor, descreva uma observação antes de adicionar.');
+                return;
+            }
+            
+            const observationsList = document.getElementById('observationsList');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            const observation = document.createElement('div');
+            observation.className = 'card';
+            observation.style.marginTop = '1rem';
+            observation.innerHTML = `
+                <p>${text}</p>
+                <small style="color: var(--text-light);">Registrado às ${timestamp}</small>
+            `;
+            
+            if (observationsList.children.length === 0) {
+                const header = document.createElement('h4');
+                header.textContent = 'Suas Observações';
+                header.style.marginBottom = '1rem';
+                observationsList.appendChild(header);
+            }
+            
+            observationsList.appendChild(observation);
+            textarea.value = '';
+            
+            // Rolagem suave para a nova observação
+            observation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Mapa de conceitos interativo
+        const conceptMap = document.getElementById('conceptMap');
+        const resetConceptsBtn = document.getElementById('resetConcepts');
+        
+        document.querySelectorAll('.concept-draggable').forEach(concept => {
+            concept.addEventListener('dragstart', function(e) {
+                e.dataTransfer.setData('text/plain', this.getAttribute('data-concept'));
+            });
+        });
+        
+        conceptMap.addEventListener('dragover', function(e) {
+            e.preventDefault();
+        });
+        
+        conceptMap.addEventListener('drop', function(e) {
+            e.preventDefault();
+            const concept = e.dataTransfer.getData('text/plain');
+            
+            const conceptElement = document.createElement('div');
+            conceptElement.className = 'concept-item';
+            conceptElement.textContent = concept;
+            conceptElement.style.position = 'absolute';
+            conceptElement.style.left = e.offsetX + 'px';
+            conceptElement.style.top = e.offsetY + 'px';
+            conceptElement.style.padding = '10px';
+            conceptElement.style.background = 'white';
+            conceptElement.style.borderRadius = '5px';
+            conceptElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            conceptElement.style.cursor = 'move';
+            
+            conceptMap.appendChild(conceptElement);
+            
+            // Tornar os conceitos arrastáveis dentro do mapa
+            makeDraggable(conceptElement);
+        });
+        
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            
+            element.onmousedown = dragMouseDown;
+            
+            function dragMouseDown(e) {
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+            
+            function elementDrag(e) {
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+            
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+        
+        resetConceptsBtn.addEventListener('click', function() {
+            conceptMap.innerHTML = '';
+        });
+
+        // Projeto de campanha
+        document.querySelectorAll('.project-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const format = this.getAttribute('data-format');
+                const projectForm = document.getElementById('projectForm');
+                
+                // Atualiza o formulário com base no formato selecionado
+                document.getElementById('projectTitle').placeholder = `Título do ${format === 'video' ? 'Vídeo' : format === 'podcast' ? 'Podcast' : format === 'zine' ? 'Zine' : 'Manifesto'}`;
+                
+                // Mostra o formulário
+                projectForm.style.display = 'block';
+                
+                // Rolagem suave para o formulário
+                projectForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Inicialização do diagrama de fluxo de poder
+        function initPowerFlowDiagram() {
+            const diagram = document.getElementById('powerFlowDiagram');
+            
+            // Criação simplificada do diagrama
+            diagram.innerHTML = `
+                <div style="position: absolute; bottom: 20px; left: 0; width: 100%; height: 80px; background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center;">
+                        <div style="font-weight: bold; color: #92400e;">SUL GLOBAL (Brasil, África, América Latina, Ásia)</div>
+                        <div style="font-size: 0.8em; color: #92400e;">Zona de Extração de Dados: Informações pessoais, padrões comportamentais, dados linguísticos</div>
+                    </div>
+                </div>
+                
+                <div style="position: absolute; top: 20px; left: 0; width: 100%; height: 100px; background: #dbeafe; border: 2px solid #2563eb; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center;">
+                        <div style="font-weight: bold; color: #1e3a8a;">NORTE GLOBAL (EUA - Vale do Silício)</div>
+                        <div style="font-size: 0.8em; color: #1e3a8a;">Big 5: Amazon • Apple • Google • Meta • Microsoft</div>
+                        <div style="font-size: 0.8em; color: #1e3a8a; font-weight: bold;">Lucro: US$ 2,3 trilhões combinados (2023)</div>
+                    </div>
+                </div>
+                
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 2px; background: #e74c3c;"></div>
+                
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(90deg); width: 80%; height: 2px; background: #8b5cf6; border: 1px dashed #8b5cf6;"></div>
+                
+                <div style="position: absolute; top: 40%; left: 20%; font-size: 0.8em; color: #991b1b;">Dados Crus ↑</div>
+                <div style="position: absolute; top: 60%; left: 70%; font-size: 0.8em; color: #6b21a8;">↓ Anúncios/Serviços</div>
+            `;
+            
+            // Adiciona alguns pontos de dados flutuantes
+            for (let i = 0; i < 15; i++) {
+                const dataPoint = document.createElement('div');
+                dataPoint.className = 'data-point';
+                dataPoint.style.left = Math.random() * 90 + '%';
+                dataPoint.style.top = Math.random() * 90 + '%';
+                dataPoint.style.animationDelay = Math.random() * 3 + 's';
+                diagram.appendChild(dataPoint);
+            }
+        }
+
+        // Inicialização quando a página carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            initPowerFlowDiagram();
+            
+            // Adiciona funcionalidade aos botões que mudam de aba
+            document.querySelectorAll('[data-tab]').forEach(button => {
+                if (button.tagName === 'BUTTON') {
+                    button.addEventListener('click', function() {
+                        const tabId = this.getAttribute('data-tab');
+                        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                        
+                        document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+                        document.getElementById(tabId).classList.add('active');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
